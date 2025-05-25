@@ -22,8 +22,8 @@ void Game::Initialize() {
     SDL_DisplayMode displayMode;
     SDL_GetCurrentDisplayMode(0, &displayMode);
 
-    windowWidth = displayMode.w;
-    windowHeight = displayMode.h;
+    windowWidth = 800; //displayMode.w;
+    windowHeight = 600; //displayMode.h;
 
     window = SDL_CreateWindow(
         NULL,
@@ -52,6 +52,7 @@ void Game::Initialize() {
 }
 
 void Game::Run(){
+    Setup();
     while (isRunning)
     {
         ProcessInput();
@@ -77,15 +78,22 @@ void Game::ProcessInput(){
     }
 }
 
+void Game::Setup(){
+
+}
+
 void Game::Update() {
     // TODO: Update game objects...
 }
 
 void Game::Render(){
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
     // TODO: Render all game objects..
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_Rect player = { 10, 10, 20, 20 };
+    SDL_RenderFillRect(renderer, &player);
 
     SDL_RenderPresent(renderer);
 }
