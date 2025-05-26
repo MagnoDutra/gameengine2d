@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <glm/glm.hpp>
 
 Game::Game() {
     isRunning = false;
@@ -79,12 +80,19 @@ void Game::ProcessInput(){
     }
 }
 
-void Game::Setup(){
+glm::vec2 playerPosition;
+glm::vec2 playerVelocity;
 
+void Game::Setup(){
+    playerPosition = glm::vec2(10.0, 20.0);
+    playerVelocity = glm::vec2(1.0, 0.0);
 }
 
+
+
 void Game::Update() {
-    // TODO: Update game objects...
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
 }
 
 void Game::Render(){
@@ -97,7 +105,7 @@ void Game::Render(){
     SDL_FreeSurface(surface);
 
     // destination of the retangle that we want to place our texture
-    SDL_Rect dstRect = { 10, 10, 32, 32 };
+    SDL_Rect dstRect = { static_cast<int>(playerPosition.x), static_cast<int>(playerPosition.y), 32, 32 };
 
     SDL_RenderCopy(renderer, texture, NULL, &dstRect);
 
