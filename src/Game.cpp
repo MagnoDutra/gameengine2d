@@ -91,7 +91,11 @@ void Game::Setup(){
 
 
 void Game::Update() {
-    while(!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME));
+    // Esse código vai me retornar quanto tempo falta para o próximo frame, código bastante utilizado em countdowns por exemplo
+    int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+    if(timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME){
+        SDL_Delay(timeToWait);
+    }
 
     millisecsPreviousFrame = SDL_GetTicks();
 
